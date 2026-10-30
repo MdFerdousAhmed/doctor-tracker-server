@@ -1,6 +1,5 @@
 {
   "version": 2,
-  "name": "doctor-tracker-server",
   "builds": [
     {
       "src": "src/index.js",

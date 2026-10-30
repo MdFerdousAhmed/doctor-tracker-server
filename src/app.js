@@ -9,22 +9,49 @@ const dashboardRoutes = require("./routes/dashboard.routes.js");
 
 const app = express();
 
-// Allow multiple origins: comma-separated CLIENT_URL env var
-const allowedOrigins = (process.env.CLIENT_URL || "http://localhost:3000")
+// Parse and normalize configured origins
+const configuredOrigins = (process.env.CLIENT_URL || "")
   .split(",")
-  .map((url) => url.trim());
+  .map((url) => url.trim().replace(/\/$/, ""))
+  .filter(Boolean);
+
+const defaultOrigins = [
+  "http://localhost:3000",
+  "http://localhost:3001",
+  "http://127.0.0.1:3000",
+  "http://127.0.0.1:3001",
+];
+
+const isOriginAllowed = (origin) => {
+  if (!origin) return true;
+  const normalized = origin.replace(/\/$/, "");
+
+  // Match default local origins
+  if (defaultOrigins.includes(normalized)) return true;
+
+  // Match explicitly configured origins from CLIENT_URL
+  if (configuredOrigins.includes(normalized)) return true;
+
+  // Allow all Vercel deployments (*.vercel.app)
+  if (/^https:\/\/.*\.vercel\.app$/.test(normalized)) return true;
+
+  return false;
+};
 
 app.use(
   cors({
     origin: (origin, callback) => {
-      // Allow requests with no origin (e.g. curl, Postman, mobile apps)
-      if (!origin || allowedOrigins.includes(origin)) {
+      if (isOriginAllowed(origin)) {
         callback(null, true);
       } else {
-        callback(new Error(`CORS: origin '${origin}' not allowed`));
+        // Return null, false to reject CORS cleanly without throwing 500 error
+        callback(null, false);
       }
     },
     credentials: true,
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
+    optionsSuccessStatus: 200,
   })
 );
 

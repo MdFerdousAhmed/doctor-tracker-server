@@ -15,6 +15,9 @@ const ensureDB = async () => {
 
 // Serverless handler — Vercel calls this for every request
 module.exports = async (req, res) => {
-  await ensureDB();
+  // Preflight requests do not require database operations
+  if (req.method !== "OPTIONS") {
+    await ensureDB();
+  }
   return app(req, res);
 };

@@ -2,9 +2,9 @@ const express = require("express");
 
 const {
   getDashboardStats,
-} = require("../controllers/dashboard.controller");
+} = require("../controllers/dashboard.controller.js");
 
-const protect = require("../middleware/auth.middleware");
+const protect = require("../middleware/auth.middleware.js");
 
 const router = express.Router();
 

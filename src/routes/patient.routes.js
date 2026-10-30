@@ -7,9 +7,9 @@ const {
   updatePatient,
   deletePatient,
   getPatientsByDoctor,
-} = require("../controllers/patient.controller");
+} = require("../controllers/patient.controller.js");
 
-const protect = require("../middleware/auth.middleware");
+const protect = require("../middleware/auth.middleware.js");
 
 const router = express.Router();
 

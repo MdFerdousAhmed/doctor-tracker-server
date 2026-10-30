@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
-const Patient = require("../models/Patient");
-const Doctor = require("../models/Doctor");
+const Patient = require("../models/Patient.js");
+const Doctor = require("../models/Doctor.js");
 
 // Add Patient
 const createPatient = async (req, res) => {

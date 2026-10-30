@@ -2,10 +2,10 @@ const express = require("express");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 
-const authRoutes = require("./routes/auth.routes");
-const doctorRoutes = require("./routes/doctor.routes");
-const patientRoutes = require("./routes/patient.routes");
-const dashboardRoutes = require("./routes/dashboard.routes");
+const authRoutes = require("./routes/auth.routes.js");
+const doctorRoutes = require("./routes/doctor.routes.js");
+const patientRoutes = require("./routes/patient.routes.js");
+const dashboardRoutes = require("./routes/dashboard.routes.js");
 
 const app = express();
 

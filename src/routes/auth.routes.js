@@ -4,9 +4,9 @@ const {
   login,
   logout,
   getMe,
-} = require("../controllers/auth.controller");
+} = require("../controllers/auth.controller.js");
 
-const protect = require("../middleware/auth.middleware");
+const protect = require("../middleware/auth.middleware.js");
 
 const router = express.Router();
 

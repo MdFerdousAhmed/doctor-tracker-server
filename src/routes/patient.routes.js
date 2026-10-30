@@ -19,9 +19,9 @@ router.use(protect);
 // Patient CRUD
 router.post("/", createPatient);
 router.get("/", getAllPatients);
+router.get("/doctor/:doctorId", getPatientsByDoctor);
 router.get("/:id", getPatientById);
 router.patch("/:id", updatePatient);
 router.delete("/:id", deletePatient);
-router.get("/doctor/:doctorId", getPatientsByDoctor);
 
 module.exports = router;

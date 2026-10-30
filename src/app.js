@@ -9,9 +9,21 @@ const dashboardRoutes = require("./routes/dashboard.routes.js");
 
 const app = express();
 
+// Allow multiple origins: comma-separated CLIENT_URL env var
+const allowedOrigins = (process.env.CLIENT_URL || "http://localhost:3000")
+  .split(",")
+  .map((url) => url.trim());
+
 app.use(
   cors({
-    origin: process.env.CLIENT_URL,
+    origin: (origin, callback) => {
+      // Allow requests with no origin (e.g. curl, Postman, mobile apps)
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error(`CORS: origin '${origin}' not allowed`));
+      }
+    },
     credentials: true,
   })
 );

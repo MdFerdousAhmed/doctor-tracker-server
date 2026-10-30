@@ -16,7 +16,6 @@ const doctorSchema = new mongoose.Schema(
     },
     hospital: {
       type: String,
-      required: true,
       trim: true,
     },
     phone: {
